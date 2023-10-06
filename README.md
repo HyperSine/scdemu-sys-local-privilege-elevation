@@ -24,7 +24,7 @@ The version of the vulnerable scdemu.sys is 6.9.0.0, which is digital signed by 
 
 ## 2. What is the vulnerability caused by?
 
-In IRP_MJ_DEVICE_CONTROL handle routine, when IOCTL code is 0x80002018, the driver doesn't validate the ioctl caller's privilege and directly pass caller-supplied data to `RtlWriteRegistryValue`, which causes an arbitrary registry write. (See function `sub_12130` in IDA.) A non-admin process can write data to admin-protected registery value, such as the value `Debugger` under `HKLM\Software\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\wsqmcons.exe`, so that it can launch any exe with `nt authority\system` privilege.
+In IRP_MJ_DEVICE_CONTROL handle routine, when IOCTL code is 0x80002018, the driver doesn't validate the ioctl caller's privilege and directly pass caller-supplied data to `RtlWriteRegistryValue`, which causes an arbitrary registry write. (See function `sub_12130` in IDA.) A non-admin process can write data to admin-protected registry value, such as the value `Debugger` under `HKLM\Software\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\wsqmcons.exe`, so that it can launch any exe with `nt authority\system` privilege.
 
 ## 3. PoC
 
